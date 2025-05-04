@@ -9,46 +9,46 @@
 
 
 # 2. Two Pointers
-| Difficulty | Problem Name                        | Leetcode ID |
-| ---------- | ----------------------------------- | ----------- |
-| Easy       | Merge Sorted Array                  | 88          |
-| Easy       | Remove Duplicates from Sorted Array | 26          |
-| Medium     | 3Sum                                | 15          |
-| Medium     | Container With Most Water           | 11          |
-| Medium     | Remove Nth Node From End            | 19          |
+| Difficulty | Problem Name                                                                                             | Link |
+| ---------- | -------------------------------------------------------------------------------------------------------- | ---- |
+| Easy       | [Merge Sorted Array](https://leetcode.com/problems/merge-sorted-array)                                   | #88  |
+| Easy       | [Remove Duplicates from Sorted Array](https://leetcode.com/problems/remove-duplicates-from-sorted-array) | #26  |
+| Medium     | [3Sum](https://leetcode.com/problems/3sum)                                                               | #15  |
+| Medium     | [Container With Most Water](https://leetcode.com/problems/container-with-most-water)                     | #11  |
+| Medium     | [Remove Nth Node From End of List](https://leetcode.com/problems/remove-nth-node-from-end-of-list)       | #19  |
 
 # 3. Prefix Sum
-| Difficulty | Problem Name                       | Leetcode ID |
-| ---------- | ---------------------------------- | ----------- |
-| Easy       | Running Sum of 1d Array            | 1480        |
-| Medium     | Subarray Sum Equals K              | 560         |
-| Medium     | Range Sum Query - Immutable        | 303         |
-| Hard       | Maximum Size Subarray Sum Equals k | 325         |
-| Hard       | Count of Range Sum                 | 327         |
+| Difficulty | Problem Name                                                                                           | Link  |
+| ---------- | ------------------------------------------------------------------------------------------------------ | ----- |
+| Easy       | [Running Sum of 1d Array](https://leetcode.com/problems/running-sum-of-1d-array)                       | #1480 |
+| Medium     | [Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k)                           | #560  |
+| Medium     | [Range Sum Query - Immutable](https://leetcode.com/problems/range-sum-query-immutable)                 | #303  |
+| Hard       | [Maximum Size Subarray Sum Equals k](https://leetcode.com/problems/maximum-size-subarray-sum-equals-k) | #325  |
+| Hard       | [Count of Range Sum](https://leetcode.com/problems/count-of-range-sum)                                 | #327  |
 
 # 4. Kadane’s Algorithm (Max Subarray)
-| Difficulty | Problem Name                        | Leetcode ID |
-| ---------- | ----------------------------------- | ----------- |
-| Easy       | Maximum Subarray                    | 53          |
-| Medium     | Maximum Product Subarray            | 152         |
-| Hard       | Best Time to Buy and Sell Stock III | 123         |
+| Difficulty | Problem Name                                                                                             | Link |
+| ---------- | -------------------------------------------------------------------------------------------------------- | ---- |
+| Easy       | [Maximum Subarray](https://leetcode.com/problems/maximum-subarray)                                       | #53  |
+| Medium     | [Maximum Product Subarray](https://leetcode.com/problems/maximum-product-subarray)                       | #152 |
+| Hard       | [Best Time to Buy and Sell Stock III](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii) | #123 |
 
 # 5. Monotonic Stack
-| Difficulty | Problem Name                   | Leetcode ID |
-| ---------- | ------------------------------ | ----------- |
-| Medium     | Next Greater Element II        | 503         |
-| Medium     | Daily Temperatures             | 739         |
-| Hard       | Largest Rectangle in Histogram | 84          |
-| Hard       | Trapping Rain Water            | 42          |
+| Difficulty | Problem Name                                                                                   | Link |
+| ---------- | ---------------------------------------------------------------------------------------------- | ---- |
+| Medium     | [Next Greater Element II](https://leetcode.com/problems/next-greater-element-ii)               | #503 |
+| Medium     | [Daily Temperatures](https://leetcode.com/problems/daily-temperatures)                         | #739 |
+| Hard       | [Largest Rectangle in Histogram](https://leetcode.com/problems/largest-rectangle-in-histogram) | #84  |
+| Hard       | [Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water)                       | #42  |
 
 # 6. Hashing / Frequency Counter
-| Difficulty | Problem Name                 | Leetcode ID |
-| ---------- | ---------------------------- | ----------- |
-| Easy       | Two Sum                      | 1           |
-| Easy       | Intersection of Two Arrays   | 349         |
-| Medium     | Group Anagrams               | 49          |
-| Medium     | Top K Frequent Elements      | 347         |
-| Hard       | Longest Consecutive Sequence | 128         |
+| Difficulty | Problem Name                                                                               | Link |
+| ---------- | ------------------------------------------------------------------------------------------ | ---- |
+| Easy       | [Two Sum](https://leetcode.com/problems/two-sum)                                           | #1   |
+| Easy       | [Intersection of Two Arrays](https://leetcode.com/problems/intersection-of-two-arrays)     | #349 |
+| Medium     | [Group Anagrams](https://leetcode.com/problems/group-anagrams)                             | #49  |
+| Medium     | [Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements)           | #347 |
+| Hard       | [Longest Consecutive Sequence](https://leetcode.com/problems/longest-consecutive-sequence) | #128 |
 
 # 7. List Comprehension + Filtering
 | Difficulty | Problem Name                             | Leetcode ID |
