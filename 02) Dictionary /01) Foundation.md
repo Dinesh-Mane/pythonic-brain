@@ -175,8 +175,8 @@ for ch in "aabbc":
 | `d.setdefault(k,v)` | `d.setdefault("x", 10)` | Add default if key not present |
 | `d.clear()`         | `d.clear()`             | Remove all elements            |
 
-## Dictionary Operations 
-### 1. Create / Initialize Dictionary
+# Dictionary Operations 
+## 1. Create / Initialize Dictionary
 ```python
 d = {}  # Empty
 d = dict()  # Also empty
@@ -186,7 +186,7 @@ d = {"a": 1, "b": 2}  # Predefined
 Variable to value mapping  
 Frequency map 
 
-### 2. Accessing Elements
+## 2. Accessing Elements
 #### i) `dict[key]` → Basic access using key 
 ही सर्वात basic आणि fast method आहे (Time complexity: O(1))
 ```python
@@ -197,7 +197,7 @@ print(student['name'])  # Output: Sita
 ```python
 print(student['city'])  # KeyError: 'city'
 ```
-#### ii) `dict.get(key, default=None)` → Safe access
+### ii) `dict.get(key, default=None)` → Safe access
 ```python
 print(student.get('city'))            # Output: None
 print(student.get('city', 'Unknown')) # Output: Unknown
@@ -211,7 +211,7 @@ print(d.get("c", 0))  # 0 (safe fallback)
 ```
 > `d["c"]` वापरल्यास → `KeyError` येईल.
 
-#### iii) `.keys()` → All keys access
+### iii) `.keys()` → All keys access
 Useful when only keys हव्यात आणि values नाही.
 ```python
 print(student.keys())  # dict_keys(['name', 'age'])
@@ -221,7 +221,7 @@ Best Tip: `list(student.keys())` केल्यास index-based access कर
 print(list(student.keys()))  # ['name', 'age']
 ```
 
-#### iv) `.values()` → All values access  
+### iv) `.values()` → All values access  
 Useful when only values हव्यात आणि keys नाही.
 ```python
 print(student.values())  # dict_values(['Sita', 22])
@@ -230,21 +230,104 @@ Best Tip: `list(student.values())` केल्यास index-based access क�
 ```python
 print(list(student.values()))  # ['Sita', 22]
 ```
-#### v) `.items()` → Access key-value pair एकत्र
+### v) `.items()` → Access key-value pair एकत्र
 Interview आणि CP मध्ये हे format जास्त वापरतात.
 ```python
 for key, value in student.items():
     print(f"{key}: {value}")
 ```
 
-### 3. Key Exists का तपासणे - `in` Operator
-```python
-if 'age' in person:
-    print("Age is present")
-```
-Time complexity: O(1) - fast lookup
+## 3. Dictionary Searching / Checking
 
-### 4. `dict.setdefault(key, default)` → Access + Add if not exists
+| Search Type                | काय शोधतो?                 | कसा वापरतो?                    |
+| -------------------------- | -------------------------- | ------------------------------ |
+| 🔑 Key exists check        | Key dictionary मधे आहे का? | `if key in dict`               |
+| 🔍 Value exists check      | Value आहे का?              | `if value in dict.values()`    |
+| 🧾 Key + Value check combo | Key आणि त्याचा value       | Loop वापरून (filter logic)     |
+| 🔁 Condition-based search  | Complex filtering          | Loop + if/else + comprehension |
+
+### i) `if key in dict` – Check if key exists
+Dictionary मध्ये एखादा key आहे का ते शोधतो.
+```python
+student = {'name': 'Sita', 'age': 22}
+
+if 'name' in student: print("Yes, key 'name' exists!")
+else: print("Not found!")  # Yes, key 'name' exists!
+```
+Time complexity: O(1) - fast lookup -  हे सर्वात fast and efficient आहे कारण dictionary internally hashing वापरतो.
+
+### ii) `if value in dict.values()` – Check if value exists
+Dictionary मधील values मध्ये काही specific value आहे का?
+```python
+student = {'name': 'Sita', 'age': 22}
+
+if 22 in student.values():
+    print("Value 22 exists!")  # Value 22 exists!
+```
+dict.values() हे list-like object आहे, त्यामुळे मोठ्या dictionary मध्ये हे थोडं slow असू शकतं.  
+
+### iii) Check key + value pair combo (manual search)
+एखादा specific key + त्याचा specific value दोघेही आहेत का, हे पाहणं.
+```python
+student = {'name': 'Sita', 'age': 22}
+
+if student.get('age') == 22:
+    print("Key 'age' with value 22 exists")
+```
+Alternative: Loop वापरून
+```python
+for key, value in student.items():
+    if key == 'age' and value == 22:
+        print("Match found")
+```
+
+### iv) Multiple key check – using set logic
+एखादा specific key + त्याचा specific value दोघेही आहेत का, हे पाहणं.
+```python
+student = {'name': 'Sita', 'age': 22, 'city': 'Pune'}
+
+# Check if all keys exist
+if {'name', 'age'}.issubset(student.keys()):
+    print("Both keys exist")
+```
+
+### v) Filter all items with condition
+Example: Find all students above age 20
+```python
+students = {
+    'Amit': 21,
+    'Sita': 19,
+    'Raj': 23
+}
+
+# Dictionary comprehension
+above_20 = {k: v for k, v in students.items() if v > 20}
+
+print(above_20)  # {'Amit': 21, 'Raj': 23}
+```
+
+### vi) Search using `.get()` with default fallback
+```python
+student = {'name': 'Sita'}
+
+age = student.get('age', 'Not Found')
+
+print(age)  # Not Found
+```
+
+### vii) Count value frequency using `collections.Counter`
+```python
+from collections import Counter
+
+votes = ['A', 'B', 'A', 'C', 'A', 'B']
+
+count = Counter(votes)
+
+print(count['A'])  # Output: 3
+```
+Useful for frequency counting in dictionaries.
+
+## 4. `dict.setdefault(key, default)` → Access + Add if not exists
 एकाच वेळी check + insert करण्यासाठी उपयोगी.
 ```python
 user = {'id': 1}
@@ -253,8 +336,8 @@ print(name)        # Output: Unknown
 print(user)        # {'id': 1, 'name': 'Unknown'}
 ```
 
-### 5. Add / Update Key-Value Pair
-#### i) `dict[key] = value`
+## 5. Add / Update Key-Value Pair
+### i) `dict[key] = value`
 > जर key असलीच तर update होतो.  
 > जर key नसेल तर नवा key-value pair add होतो.
 
@@ -272,7 +355,7 @@ student['city'] = 'Pune'
 
 print(student)  # {'name': 'Sita', 'age': 23, 'city': 'Pune'}
 ```
-#### ii) Using `dict.update()` method  
+### ii) Using `dict.update()` method  
 एकाच वेळी एक किंवा अनेक key-value pairs add/update करू शकतो.
 ```python
 # syntax
@@ -290,10 +373,23 @@ student.update({'city': 'Nagpur'})
 print(student)  # {'name': 'Sita', 'age': 22, 'city': 'Nagpur'}
 ```
 
-#### iii) Using Dictionary Unpacking (**) – Python 3.5+
+### iii) Using Dictionary Unpacking (**) – Python 3.5+
 दोन dictionaries merge करून नवीन dictionary तयार करतो.  
 > Note: ह्यामुळे नवीन dictionary तयार होते (immutable update).
 
+```python
+student = {'name': 'Sita'}
+new_data = {'age': 22, 'city': 'Pune'}
+
+# ✅ Merge two dicts using unpacking
+student = {**student, **new_data}
+
+print(student)  # {'name': 'Sita', 'age': 22, 'city': 'Pune'}
+```
+
+### iv) Using `setdefault()`
+जर key नसेल, तर add होतो with default value.  
+जर key already असेल, काहीही update होत नाही.  
 ```python
 student = {'name': 'Sita'}
 
@@ -306,199 +402,496 @@ student.setdefault('name', 'Radha')
 print(student)  # {'name': 'Sita', 'age': 22}
 ```
 
-#### iv) Using `setdefault()`
-जर key नसेल, तर add होतो with default value.  
-जर key already असेल, काहीही update होत नाही.  
+## 6. Delete Elements
+### i) `del dict[key]` – Specific key-value pair delete करतो
+Mhanje `Dict` मधून एखादा key-value pair delete करतो.  
+
+```python
+student = {'name': 'Sita', 'age': 22}
+
+# Delete the 'age' key
+del student['age']
+
+print(student)  #  {'name': 'Sita'}
+```
+⚠️ जर key नसेल तर KeyError येतो! 
+> Handle with check: 
+```python
+if 'age' in student:
+    del student['age']
+```
+### ii) `.pop(key, default)` – Delete + Return
+Delete करतो आणि त्याच key चा value return करतो.
+
+```python
+student = {'name': 'Sita', 'age': 22}
+
+age_value = student.pop('age')
+
+print(age_value)  # 22
+print(student)    # {'name': 'Sita'}
+```
+⚠️ जर key नसेल तर KeyError येतो. Optional default वापरून handle करू शकतो.
 ```python
 student = {'name': 'Sita'}
-new_data = {'age': 22, 'city': 'Pune'}
+value = student.pop('age', 'Not Found')
+print(value)  # Not Found
+```
+### iii) `.popitem()` – Last inserted item काढतो (Python 3.7+)
+Last added key-value pair काढतो आणि tuple स्वरूपात return करतो.
 
-# ✅ Merge two dicts using unpacking
-student = {**student, **new_data}
+```python
+student = {'name': 'Sita', 'age': 22, 'city': 'Pune'}
 
-print(student)  # {'name': 'Sita', 'age': 22, 'city': 'Pune'}
+item = student.popitem()
+
+print(item)       # ('city', 'Pune')
+print(student)    # {'name': 'Sita', 'age': 22}
+```
+⚠️ जर dictionary खाली (empty) असेल तर KeyError येतो.
+
+### iv) `.clear()` – सगळी key-value pairs delete
+Dictionary पूर्णपणे साफ करतो (empty करतो).
+```python
+student = {'name': 'Sita', 'age': 22}
+
+student.clear()
+
+print(student)  # {}
 ```
 
+### v) `del dict` – Complete dictionary object delete
+संपूर्ण dictionary object delete होतो.
+```python
+student = {'name': 'Sita'}
 
-### 4. Delete a key-value pair
-**`del dict[key]` → Delete a key-value pair**  
-जर key नसेल, तर `KeyError`.
-```python
-del person['city']
-```
-**`.pop(key, default)` → Remove & Return Value**  
-Safe delete with return.  
-```python
-age = person.pop('age', None)
-print(age)  # Output: 30
-```
-**`.popitem()` → Remove & return last inserted item**
-```python
-mylist.extend([60, 70])
-print(mylist)  # [10, 50, 99, 30, 40, 60, 70]
-```
-**`dict.clear()` – Remove all pairs (clear all dict**  
-```python
-person.clear()
-print(person)  # {}
-```
-##################
-### 5. Delete Elements
-**`pop()` – Remove last**  
-```python
-mylist.pop()  # removes 70
-print(mylist)
-```
-**`pop(index)` – Remove specific index**  
-```python
-mylist.pop(1)  # removes 50
-print(mylist)
-```
-**`remove(value)` – Remove by value**  
-```python
-mylist.remove(99)
-print(mylist)
-```
-**`clear()` – Remove all elements**  
-```python
-mylist.clear()
-print(mylist)  # []
-```
-### 6. Search/Check Elements
-**`in` keyword**  
-```python
-mylist = [1, 2, 3]
-print(2 in mylist)   # True
-print(5 in mylist)   # False
-```
-**`index()` – Find position**  
-`index(x, start_index, end_index)` asa asto main mhanje pn tyalae `start_index` ani `end_index` optional astat
-```python
-print(mylist.index(2))  # 1
+del student
 
-lst = [10, 20, 30, 20]
-print(lst.index(20))       # 1
-print(lst.index(20, 2))    # 3
+# print(student)  # ❌ Error: NameError – student is not defined
 ```
-**`count()` – How many times value appears**  
-```python
-print(mylist.count(3))  # 1
-```
-### 7. Length of list
+
+### Summary
+| Method           | Purpose                              | Deletes Key? | Returns Value? |
+| ---------------- | ------------------------------------ | ------------ | -------------- |
+| `del dict[key]`  | Delete specific key                  | ✅            | ❌              |
+| `dict.pop(key)`  | Delete specific key and return value | ✅            | ✅              |
+| `dict.popitem()` | Remove **last inserted** item        | ✅            | ✅ (tuple)      |
+| `dict.clear()`   | Remove all items                     | ✅ (all)      | ❌              |
+| `del dict`       | Delete entire dictionary object      | ✅ (object)   | ❌              |
+
+## 7. Length of list
 ```python
 print(len(mylist))  # 3
 ```
-### 8. Slicing
-**Basic**  
-```python
-nums = [10, 20, 30, 40, 50]
-print(nums[1:4])    # [20, 30, 40]
-```
-**Step slicing**  
-```python
-print(nums[::2])    # [10, 30, 50]
-```
-**Reverse slicing**  
-```python
-print(nums[::-1])   # [50, 40, 30, 20, 10]
-```
-### 9. Loop through List
-**Using for loop**  
-```python
-for x in nums:
-    print(x)
-```
-**Using while loop**  
-```python
-i = 0
-while i < len(nums):
-    print(nums[i])
-    i += 1
-```
-**With enumerate() – gives index and value**  
-```python
-for idx, val in enumerate(nums):
-    print(f"Index {idx}, Value {val}")
-```
-> Note: fakt list sobat ch nhi tr enumerate baki data structures sobat pn use karu shakato  
-> eg. in case of hashmap -> `for inx, (key, val) in enumerate(hashmap)` asa yeyil
+`len()` on dictionary is O(1) — fast because Python internally tracks size.
 
-### 10. Sort & Reverse
-**`sort()` – in-place**  
-`sort(key=None, reverse=False)` asa asto main function. but Optional: `reverse=True`, `key=custom_function`.
-> both `sort()` ani `sorted()` internally TimSort use kartat -  `TimSort = Merge Sort + Insertion Sort hybrid`
+## 8. Slicing
+Dictionary ला direct slicing करता येत नाही (like list/string).  
+This is not Valid:
 ```python
-nums.sort()
-print(nums)
+my_dict = {'a': 1, 'b': 2, 'c': 3}
+# print(my_dict[0:2])  ❌ This gives: TypeError
+```
+Dictionary मध्ये indexing नसते (unordered structure – until Python 3.7+ retains insertion order, but not indexable like lists).  
+### तरीही, आपल्याला “सारखं” काम हवं असेल, तर पुढील techniques वापरता येतात:  
+### i)  Dictionary to List Conversion and then Slicing  
+Eg. : dictionary मधील first n elements घ्यायचे असतील.  
+```python
+my_dict = {'a': 1, 'b': 2, 'c': 3, 'd': 4}
 
-lst = [3, 1, 2]
-lst.sort()
-print(lst)  # [1, 2, 3]
+# Convert to list of tuples, slice first 2 elements
+sliced = dict(list(my_dict.items())[:2])
 
-lst.sort(reverse=True)
-print(lst)  # [3, 2, 1]
-```
-**`sorted()` – creates new list**  
-```python
-print(sorted(nums))  # sorted in ascending
-print(sorted(nums, reverse=True))  # sorted in descending
-```
-**`reverse()` – just reverses order**  
-```python
-nums.reverse()
-print(nums)
-```
-### 11. Copying a list
-**Shallow copy**  
-```python
-copy1 = nums.copy()
-```
-**Slicing method**  
-```python
-copy2 = nums[:]
+print(sliced)  # {'a': 1, 'b': 2}
 ```
 
-### 12. Join/Convert
-**List to String**  
+### ii) Slicing Only Keys  
 ```python
-chars = ['a', 'b', 'c']
-print(''.join(chars))  # "abc"
-```
-**String to List**  
-```python
-s = "hello"
-print(list(s))  # ['h', 'e', 'l', 'l', 'o']
-```
-### 13. List Comprehension
-**Basic**  
-```python
-squares = [x*x for x in range(5)]
-print(squares)  # [0, 1, 4, 9, 16]
-```
-**With condition**  
-```python
-evens = [x for x in range(10) if x % 2 == 0]
-print(evens)  # [0, 2, 4, 6, 8]
-```
-### 14. Nested Lists (2D Lists)
-**`reverse()` – just reverses order**  
-```python
-matrix = [
-  [1, 2],
-  [3, 4],
-  [5, 6]
-]
-print(matrix[1][1])  # 4
+my_dict = {'a': 1, 'b': 2, 'c': 3, 'd': 4}
 
-# Loop through matrix
-for row in matrix:
-    for val in row:
-        print(val)
+keys = list(my_dict.keys())[1:3]  # Slice index 1 to 2 → ['b', 'c']
+
+print(keys)
 ```
-### 15. Miscellaneous
-**`max()`, `min()`, `sum()`**
+जर full sliced dictionary पाहिजे असेल:
+```pythion
+sliced = {k: my_dict[k] for k in list(my_dict.keys())[1:3]}
+
+print(sliced)  # {'b': 2, 'c': 3}
+```
+
+### iii) Slicing by Condition (Filter Style)
+Eg. : सगळी values > 10 असलेली pairs retain करायची
 ```python
-print(max(nums))  # Max value
-print(min(nums))  # Min value
-print(sum(nums))  # Sum
+prices = {'apple': 10, 'banana': 5, 'cherry': 15, 'grapes': 8}
+
+sliced = {k: v for k, v in prices.items() if v > 10}
+
+print(sliced)  # {'cherry': 15}
 ```
+CP मध्ये conditional slicing फार उपयोगी padte
+
+## 9. Loop Through Dictionary
+### i) Loop through keys 
+By default, for key in dict हे keys वरच iterate करतं.
+```python
+student = {'name': 'Rahul', 'age': 21, 'grade': 'A'}
+
+for key in student:
+    print(key)
+```
+output:
+```python
+name
+age
+grade
+```
+
+### ii) Loop through values
+```python
+for value in student.values():
+    print(value)
+```
+output:
+```python
+Rahul
+21
+A
+```
+
+### iii) Loop through key-value pairs
+```python
+for key, value in student.items():
+    print(f"{key} => {value}")
+```
+output:
+```python
+name => Rahul
+age => 21
+grade => A
+```
+
+
+### iv) Loop through sorted keys
+```python
+for key in sorted(student):
+    print(f"{key} => {student[key]}")
+```
+output:
+```python
+age => 21
+grade => A
+name => Rahul
+```
+`sorted()` वापरल्याने keys alphabetically sort होतात.  
+
+### v) Loop through keys with `enumerate()` (indexing)
+```python
+for idx, key in enumerate(student):
+    print(f"{idx}: {key} => {student[key]}")
+```
+output:
+```python
+0: name => Rahul
+1: age => 21
+2: grade => A
+```
+`enumerate()` वापरल्याने तुम्हाला index number पण मिळतो.
+
+### vi) Reverse Loop
+```python
+for key in reversed(list(student)):
+    print(f"{key} => {student[key]}")
+```
+output:
+```python
+grade => A
+age => 21
+name => Rahul
+```
+Reversed order मध्ये loop करायचा असल्यास `reversed()` वापरतो.
+
+### vii) Loop over Nested Dictionary
+```python
+students = {
+    'Rahul': {'age': 21, 'grade': 'A'},
+    'Neha': {'age': 22, 'grade': 'B'}
+}
+
+for name, info in students.items():
+    print(f"{name}'s Info:")
+    for key, value in info.items():
+        print(f"  {key} => {value}")
+```
+output:
+```python
+Rahul's Info:
+  age => 21
+  grade => A
+Neha's Info:
+  age => 22
+  grade => B
+```
+हे interviews साठी खूप महत्त्वाचं pattern आहे — nested dict वर loop टाकणे.
+
+### Bonus: Dictionary Comprehension with Loop
+```python
+squares = {x: x*x for x in range(1, 6)}
+print(squares)  # {1: 1, 2: 4, 3: 9, 4: 16, 5: 25}
+```
+Dictionary comprehension = loop + conditional logic → neat and concise dict creation
+
+## 10. Sort a Dictionary
+Dictionary म्हणजे unordered collection (Python 3.6+ पासून insertion order preserve होतो, पण sort नाही).  
+Sorting करायचं असेल तर sorted() वापरावं लागतं — पण dict वर directly sort लावता येत नाही, त्याचे keys, values किंवा items sort करून नवीन dict तयार करावी लागते.
+
+### i) Sort by Keys (Ascending)
+```python
+student = {'name': 'Rahul', 'age': 21, 'grade': 'A'}
+
+sorted_by_keys = dict(sorted(student.items()))
+print(sorted_by_keys)
+```
+output:
+```python
+{'age': 21, 'grade': 'A', 'name': 'Rahul'}
+```
+`sorted(student.items())` हे list of tuples return करतं, जे dictionary च्या key-value pairs असतात आणि हे sort केलेले असतात keys वर ascending order मध्ये.  
+`sorted(dict.items())` हे key वर sort करतं कारण items हे (key, value) pair असतात.  
+
+### ii) Sort by Keys (Descending)
+```python
+sorted_by_keys_desc = dict(sorted(student.items(), reverse=True))
+print(sorted_by_keys_desc)
+```
+output:
+```python
+{'name': 'Rahul', 'grade': 'A', 'age': 21}
+```
+
+### iii) Sort by Values (Ascending)
+```python
+sorted_by_values = dict(sorted(student.items(), key=lambda item: item[1]))
+print(sorted_by_values)
+```
+output:
+```python
+{'grade': 'A', 'name': 'Rahul', 'age': 21}
+```
+`item[1]` म्हणजे value वर sort
+
+### iv) Sort by Values (Descending)
+```python
+sorted_by_values_desc = dict(sorted(student.items(), key=lambda item: item[1], reverse=True))
+print(sorted_by_values_desc)
+```
+output:
+```python
+{'age': 21, 'name': 'Rahul', 'grade': 'A'}
+```
+
+## 11. Reverse a Dictionary
+Dictionary ला direct reverse करता येत नाही, पण keys किंवा items चा order उलटा करून करता येतं.  
+
+### i) Reverse Insertion Order
+```python
+student = {'name': 'Rahul', 'age': 21, 'grade': 'A'}
+reversed_dict = dict(reversed(list(student.items())))
+print(reversed_dict)
+```
+output:
+```python
+{'grade': 'A', 'age': 21, 'name': 'Rahul'}
+```
+### ii) Reverse Keys List
+```python
+for key in reversed(student):
+    print(f"{key} => {student[key]}")
+```
+output:
+```python
+grade => A
+age => 21
+name => Rahul
+```
+### iii) Reverse using Dictionary Comprehension
+```python
+rev_dict = {k: student[k] for k in reversed(student)}
+print(rev_dict)
+```
+output:
+```python
+{'grade': 'A', 'age': 21, 'name': 'Rahul'}
+```
+
+
+## 12. Joining Dictionaries (Dict Merge)
+### i) Using `update()`
+```python
+dict1 = {'a': 1, 'b': 2}
+dict2 = {'b': 3, 'c': 4}
+
+dict1.update(dict2)
+print(dict1)   # {'a': 1, 'b': 3, 'c': 4}
+
+```
+> Note: Common key ('b') ची value dict2 ने overwrite केली.
+
+### ii) Using `|` (Python 3.9+)
+```python
+dict1 = {'a': 1, 'b': 2}
+dict2 = {'c': 3}
+
+merged = dict1 | dict2
+print(merged)  # {'a': 1, 'b': 2, 'c': 3}
+```
+> Note: | operator एक नवीन dictionary return करतो – original dicts modify होत नाहीत.  
+
+### iii) Using dictionary unpacking (**)
+```python
+dict1 = {'a': 1}
+dict2 = {'b': 2}
+merged = {**dict1, **dict2}
+print(merged)  # {'a': 1, 'b': 2}
+```
+
+## 13. Conversion Operations
+### i) Convert List of Tuples → Dictionary
+```python
+pairs = [('a', 1), ('b', 2)]
+d = dict(pairs)
+print(d)   # {'a': 1, 'b': 2}
+```
+
+### ii) Convert Two Lists → Dictionary using `zip()`
+```python
+keys = ['a', 'b', 'c']
+values = [1, 2, 3]
+
+d = dict(zip(keys, values))
+print(d)  # {'a': 1, 'b': 2, 'c': 3}
+```
+
+### iii) Convert Dictionary → List of Keys, Values, or Items
+```python
+d = {'a': 1, 'b': 2}
+
+print(list(d.keys()))    # ['a', 'b']
+print(list(d.values()))  # [1, 2]
+print(list(d.items()))   # [('a', 1), ('b', 2)]
+```
+### iv) Convert Dictionary → String
+```python
+d = {'a': 1, 'b': 2}
+s = str(d)
+print(s)   # "{'a': 1, 'b': 2}"
+```
+### v) Convert String → Dictionary using `json.loads()`
+```python
+import json
+
+s = '{"a": 1, "b": 2}'
+d = json.loads(s)
+print(d)  # {'a': 1, 'b': 2}
+```
+
+### vi) Convert Dictionary → JSON string using `json.dumps()`
+```python
+import json
+
+d = {'a': 1, 'b': 2}
+s = json.dumps(d)
+print(s)  # '{"a": 1, "b": 2}'
+```
+
+## 14. Miscellaneous
+### i) `copy()` – Clone Dictionary (Shallow Copy)
+```python
+original = {'a': 1, 'b': 2}
+copy_dict = original.copy()
+print(copy_dict)  # {'a': 1, 'b': 2}
+```
+Note: हा shallow copy असतो – nested structures असेल तर ते shared असतात.  
+
+### ii) `fromkeys()` – List मधून key तयार करणे
+```python
+keys = ['name', 'age', 'gender']
+default_value = None
+d = dict.fromkeys(keys, default_value)
+print(d)  # {'name': None, 'age': None, 'gender': None}
+```
+
+### iii) `setdefault()` – Default value assign करतो (जर key नसेल तर)
+```python
+student = {'name': 'Ravi'}
+student.setdefault('age', 25)
+student.setdefault('name', 'Akash')  # already exists
+
+print(student)  # {'name': 'Ravi', 'age': 25}
+```
+
+### iv) Dictionary Equality Check – Compare two dictionaries
+```python
+d1 = {'a': 1, 'b': 2}
+d2 = {'b': 2, 'a': 1}
+print(d1 == d2)  # True
+```
+Key order important नाही Python dict मध्ये (>=3.7 retains order, but equality doesn't care about it)
+
+## Aggregate Functions
+Example Dictionary: 
+```python
+scores = {
+    'Ravi': 88,
+    'Sneha': 92,
+    'Amit': 76,
+    'Neha': 85
+}
+```
+
+### 1. `sum()` – सगळ्या values ची बेरीज
+```python
+total = sum(scores.values())
+print(total)  # Output: 88 + 92 + 76 + 85 = 341
+```
+
+### 2. `max()` – सर्वात जास्त score (value) किंवा नाव (key)
+```python
+max_score = max(scores.values())  # By value
+print(max_score)  # 92
+
+topper = max(scores, key=scores.get)  # कोणाचा आहे?
+print(topper)  # Sneha
+```
+
+### 3. `min()` – सगळ्यात कमी score
+```python
+min_score = min(scores.values())  # 76
+weakest = min(scores, key=scores.get)
+print(weakest)  # Amit
+```
+
+### 4. `sorted()` – Ordered view by values
+```python
+count = len(scores)
+print(count)  # Output: 4
+```
+### 5. Top N scorers (advanced)
+```python
+top_2 = sorted(scores.items(), key=lambda item: item[1], reverse=True)[:2]
+print(top_2)
+# [('Sneha', 92), ('Ravi', 88)]
+```
+### 6. statistics.mean() – Average काढण्यासाठी (Python inbuilt lib)
+```python
+# Ascending order of scores
+sorted_by_value = sorted(scores.items(), key=lambda item: item[1])
+print(sorted_by_value)
+# [('Amit', 76), ('Neha', 85), ('Ravi', 88), ('Sneha', 92)]
+```
+### 7. `len()` – किती entries आहेत (keys count)
+```python
+count = len(scores)
+print(count)  # Output: 4
+```
+
