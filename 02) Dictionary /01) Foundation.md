@@ -184,18 +184,58 @@ d = {"a": 1, "b": 2}  # Predefined
 ```
 **Use-case:**  
 Variable to value mapping  
-Frequency map  
+Frequency map 
+
 ### 2. Accessing Elements
+#### i) `dict[key]` → Basic access using key 
+ही सर्वात basic आणि fast method आहे (Time complexity: O(1))
 ```python
-d["a"]  # Direct access
-d.get("b", default_value)  # Safe access
+student = {'name': 'Sita', 'age': 22}
+print(student['name'])  # Output: Sita
 ```
+जर key exist नसेल तर KeyError येतो:
+```python
+print(student['city'])  # KeyError: 'city'
+```
+#### ii) `dict.get(key, default=None)` → Safe access
+```python
+print(student.get('city'))            # Output: None
+print(student.get('city', 'Unknown')) # Output: Unknown
+```
+जेव्हा तुम्हाला माहित नाही की key आहे की नाही, तेव्हा get() वापरावे.
+
 ```python
 d = {"a": 10, "b": 20}
 print(d["a"])         # 10
 print(d.get("c", 0))  # 0 (safe fallback)
 ```
 > `d["c"]` वापरल्यास → `KeyError` येईल.
+
+#### iii) `.keys()` → All keys access
+Useful when only keys हव्यात आणि values नाही.
+```python
+print(student.keys())  # dict_keys(['name', 'age'])
+```
+Best Tip: `list(student.keys())` केल्यास index-based access करता येते.
+```python
+print(list(student.keys()))  # ['name', 'age']
+```
+
+#### iv) `.values()` → All values access  
+Useful when only values हव्यात आणि keys नाही.
+```python
+print(student.values())  # dict_values(['Sita', 22])
+```
+Best Tip: `list(student.values())` केल्यास index-based access करता येते.
+```python
+print(list(student.values()))  # ['Sita', 22]
+```
+#### v) `.items()` → Access key-value pair एकत्र
+Interview आणि CP मध्ये हे format जास्त वापरतात.
+```python
+for key, value in student.items():
+    print(f"{key}: {value}")
+```
 
 ### 3. Key Exists का तपासणे - `in` Operator
 ```python
@@ -204,17 +244,82 @@ if 'age' in person:
 ```
 Time complexity: O(1) - fast lookup
 
-### 4. Add / Update Key-Value Pair
+### 4. `dict.setdefault(key, default)` → Access + Add if not exists
+एकाच वेळी check + insert करण्यासाठी उपयोगी.
+```python
+user = {'id': 1}
+name = user.setdefault('name', 'Unknown')
+print(name)        # Output: Unknown
+print(user)        # {'id': 1, 'name': 'Unknown'}
+```
+
+### 5. Add / Update Key-Value Pair
+#### i) `dict[key] = value`
+> जर key असलीच तर update होतो.  
+> जर key नसेल तर नवा key-value pair add होतो.
+
 ```python
 d["new_key"] = new_value  # Add
 d["existing_key"] = new_value  # Update
 ```
 ```python
-d = {}
-d["x"] = 5  # Add
-d["x"] = 10  # Update
-print(d)  # {'x': 10}
+student = {'name': 'Sita', 'age': 22}
+# ✅ Update existing key
+student['age'] = 23
+
+# ✅ Add new key-value
+student['city'] = 'Pune'  
+
+print(student)  # {'name': 'Sita', 'age': 23, 'city': 'Pune'}
 ```
+#### ii) Using `dict.update()` method  
+एकाच वेळी एक किंवा अनेक key-value pairs add/update करू शकतो.
+```python
+# syntax
+dict.update({key: value})
+```
+```python
+student = {'name': 'Sita'}
+
+# ✅ Add multiple keys
+student.update({'age': 22, 'city': 'Mumbai'})
+
+# ✅ Update existing key
+student.update({'city': 'Nagpur'})
+
+print(student)  # {'name': 'Sita', 'age': 22, 'city': 'Nagpur'}
+```
+
+#### iii) Using Dictionary Unpacking (**) – Python 3.5+
+दोन dictionaries merge करून नवीन dictionary तयार करतो.  
+> Note: ह्यामुळे नवीन dictionary तयार होते (immutable update).
+
+```python
+student = {'name': 'Sita'}
+
+# Add if not exists
+student.setdefault('age', 22)
+
+# No change since 'name' already exists
+student.setdefault('name', 'Radha')
+
+print(student)  # {'name': 'Sita', 'age': 22}
+```
+
+#### iv) Using `setdefault()`
+जर key नसेल, तर add होतो with default value.  
+जर key already असेल, काहीही update होत नाही.  
+```python
+student = {'name': 'Sita'}
+new_data = {'age': 22, 'city': 'Pune'}
+
+# ✅ Merge two dicts using unpacking
+student = {**student, **new_data}
+
+print(student)  # {'name': 'Sita', 'age': 22, 'city': 'Pune'}
+```
+
+
 ### 4. Delete a key-value pair
 **`del dict[key]` → Delete a key-value pair**  
 जर key नसेल, तर `KeyError`.
@@ -232,7 +337,11 @@ print(age)  # Output: 30
 mylist.extend([60, 70])
 print(mylist)  # [10, 50, 99, 30, 40, 60, 70]
 ```
-
+**`dict.clear()` – Remove all pairs (clear all dict**  
+```python
+person.clear()
+print(person)  # {}
+```
 ##################
 ### 5. Delete Elements
 **`pop()` – Remove last**  
