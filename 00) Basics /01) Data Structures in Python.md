@@ -120,7 +120,7 @@ person['age'] = 31  # Update value
 | `tuple`     | ✅       | ❌       | ✅                 | Fixed-size, used as keys     |
 | `set`       | ❌       | ✅       | ❌                 | Unique elements only         |
 | `frozenset` | ❌       | ❌       | ❌                 | Immutable version of `set`   |
-| `dict`      | ✅       | ✅       | ❌ (in keys)       | Key-value store, fast lookup |
+| `dict`      | ✅ (from Python 3.7+) | ✅       | ❌ (in keys)       | Key-value store, fast lookup |
 
 
 ## 2. From `collections` Module
