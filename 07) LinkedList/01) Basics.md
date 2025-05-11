@@ -373,10 +373,10 @@ Dry Run:
 **Problem type:** Merge two sorted singly linked lists into one sorted list.
 ```python
 def merge_sorted_lists(l1, l2):
-    dummy = Node(-1)
+    dummy = Node(-1) # Node(0) asa kahi pn gheu shakato value
     curr = dummy
     while l1 and l2:
-        if l1.data < l2.data:
+        if l1.val < l2.val:
             curr.next = l1
             l1 = l1.next
         else:
