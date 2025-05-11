@@ -17,7 +17,7 @@ import math
 INF = math.inf
 NEG_INF = -math.inf
 ```
-Internally, math.inf == float('inf') → both are identical.
+Internally, `math.inf == float('inf')` → both are identical.
 
 ## 3. Using a Very Large Integer (`10**9`, `10**18`)
 In CP, sometimes inf is mocked using large integers due to performance or input constraints.
