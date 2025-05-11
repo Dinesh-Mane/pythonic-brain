@@ -7,11 +7,11 @@ A Linked List is a linear data structure where each element (called a Node) cont
 Each node can be represented using a class in Python:
 ```python
 class Node:
-    def __init__(self, data):
-        self.data = data
+    def __init__(self, val):
+        self.val = val
         self.next = None
 ```
-- `data`: holds the value
+- `val`: holds the value
 - `next`: points to the next node (or None if it's the last)
 
 
@@ -63,8 +63,8 @@ class Node:
 First, Define the Node and LinkedList Classes
 ```python
 class Node:
-    def __init__(self, data):
-        self.data = data
+    def __init__(self, val):
+        self.val = val
         self.next = None
         
 class LinkedList:
@@ -75,8 +75,8 @@ class LinkedList:
 ## 1. Insert at Head (O(1))
 **Problem type:** insert a new node at the beginning (i.e., head/front) of the linked list.
 ```python
-def insert_at_head(self, data):
-    new_node = Node(data)
+def insert_at_head(self, val):
+    new_node = Node(val)
     new_node.next = self.head
     self.head = new_node
 ```
@@ -93,8 +93,8 @@ Dry Run:
 ## 2. Insert at Tail (O(n))
 **Problem type:** Insert a new node at the end (tail) of the linked list.
 ```python
-def insert_at_tail(self, data):
-    new_node = Node(data)
+def insert_at_tail(self, val):
+    new_node = Node(val)
     if not self.head:
         self.head = new_node
         return
@@ -117,11 +117,11 @@ Dry Run:
 ## 3. Insert at Specific Position (O(n))
 **Problem type:** Insert a new node at a given 0-based index position in the linked list.
 ```python
-def insert_at_position(self, data, pos):
+def insert_at_position(self, val, pos):
     if pos == 0:
-        self.insert_at_head(data)
+        self.insert_at_head(val)
         return
-    new_node = Node(data)
+    new_node = Node(val)
     curr = self.head
     for _ in range(pos - 1):
         if not curr:
@@ -148,12 +148,12 @@ Dry Run:
 def delete_by_value(self, value):
     if not self.head:
         return  # Empty list
-    if self.head.data == value:
+    if self.head.val == value:
         self.head = self.head.next  # Delete head
         return
     prev = None
     curr = self.head
-    while curr and curr.data != value:
+    while curr and curr.val != value:
         prev = curr
         curr = curr.next
     if curr:
@@ -207,7 +207,7 @@ Dry Run:
 def search(self, target):
     curr = self.head
     while curr:
-        if curr.data == target:
+        if curr.val == target:
             return True
         curr = curr.next
     return False
@@ -230,7 +230,7 @@ Dry Run:
 def print_list(self):
     curr = self.head
     while curr:
-        print(curr.data, end=" → ")
+        print(curr.val, end=" → ")
         curr = curr.next
     print("None")
 ```
@@ -327,7 +327,7 @@ def find_middle(self):
     while fast and fast.next:
         slow = slow.next
         fast = fast.next.next
-    return slow.data if slow else None
+    return slow.val if slow else None
 ```
 > Use the Tortoise and Hare Algorithm:  
 > `slow` moves one step at a time, `fast` moves two steps.  
