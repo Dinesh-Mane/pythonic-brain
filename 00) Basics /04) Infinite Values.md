@@ -20,7 +20,7 @@ NEG_INF = -math.inf
 Internally, `math.inf == float('inf')` → both are identical.
 
 ## 3. Using a Very Large Integer (`10**9`, `10**18`)
-In CP, sometimes inf is mocked using large integers due to performance or input constraints.
+In CP, sometimes `inf` is mocked using large integers due to performance or input constraints.
 ```python
 INF = int(1e9)         # 1000000000
 BIG_INF = int(1e18)    # 1000000000000000000
